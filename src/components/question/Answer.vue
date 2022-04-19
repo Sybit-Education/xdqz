@@ -1,6 +1,6 @@
 <template>
-  <b-button>
-    {{ answer.answer }}
+  <b-button class="w-100 mb-3" @click="clicked()">
+    {{ answer.id }}: {{ answer.answer }}
   </b-button>
 </template>
 
@@ -11,6 +11,11 @@ export default {
     answer: {
       type: Object,
       required: true
+    }
+  },
+  methods: {
+    clicked () {
+      this.$emit('clicked', this.answer.id)
     }
   }
 }

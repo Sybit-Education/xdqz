@@ -1,8 +1,10 @@
 <template>
   <b-container>
+    <h2>Frage {{ questionLabel }}</h2>
+    <b-progress :value="questionLabel" :max="10" variant="warning" />
+    <span class="d-flex justify-content-end" style="color: grey">{{ questionLabel }}/10</span>
     <div v-if="questions.length">
-      <question :question="questions[0]" class="mb-5" />
-      <question :question="questions[1]" />
+      <question :question="questions[questionIndex]" class="mb-5" @next="nextQuestion" />
     </div>
     <b-spinner v-else></b-spinner>
   </b-container>
@@ -16,11 +18,22 @@ export default {
   components: { Question },
   data () {
     return {
-      questions: []
+      questions: [],
+      questionIndex: 0
+    }
+  },
+  computed: {
+    questionLabel () {
+      return this.questionIndex + 1
     }
   },
   async created () {
     this.questions = await questionService.getQuestions()
+  },
+  methods: {
+    nextQuestion () {
+      this.questionIndex++
+    }
   }
 }
 </script>
