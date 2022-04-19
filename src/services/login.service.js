@@ -6,31 +6,51 @@ const loginService = {
 
   verifyPin (pin) {
     console.log(pin)
-    const resultList = []
+    return new Promise((resolve, reject) => {
+      const resultList = []
 
-    base(TABLE_NAME).select({
-      filterByFormula: `SEARCH(LOWER('${pin}'),LOWER({Pin}))`
-    }).eachPage(
-      function page (partialRecords) {
-        // This function (`page`) will get called for each page of records.
-        partialRecords.forEach((partialRecord) => {
-          resultList.push({
-            id: partialRecord.id,
-            ...partialRecord.fields
+      base(TABLE_NAME).select({
+        filterByFormula: `SEARCH(LOWER('${pin}'),LOWER({Pin}))`
+      }).eachPage(
+        function page (partialRecords) {
+          // This function (`page`) will get called for each page of records.
+          partialRecords.forEach((partialRecord) => {
+            resultList.push({
+              id: partialRecord.id,
+              ...partialRecord.fields
+            })
           })
-        })
-      },
-      function done (err) {
-        if (err) {
-          console.error(err)
+        },
+        function done (err) {
+          if (err) {
+            console.error(err)
+            reject(err)
+          }
         }
-      }
-    )
-    console.log('resultList', resultList)
+      )
+      console.log('resultList', resultList)
 
-    return resultList
+      resolve(resultList)
+    })
   },
-  setShortname (pin, shortname) {
+  setShortname (record, pin, shortname) {
+    console.log(record, pin, shortname)
+    base(TABLE_NAME).update([{
+      id: record.id,
+      fields: {
+        Pin: pin,
+        Shortname: shortname
+      }
+    }
+    ], function (err, records) {
+      if (err) {
+        console.error(err)
+        return
+      }
+      records.forEach(function (record) {
+        console.log(record.get('Score'))
+      })
+    })
   }
 }
 
