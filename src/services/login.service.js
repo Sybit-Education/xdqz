@@ -10,7 +10,8 @@ const loginService = {
       const resultList = []
 
       base(TABLE_NAME).select({
-        filterByFormula: `SEARCH(LOWER('${pin}'),LOWER({Pin}))`
+        filterByFormula: `SEARCH(LOWER('${pin}'),LOWER({Pin}))`,
+        maxRecords: 1
       }).eachPage(
         function page (partialRecords) {
           // This function (`page`) will get called for each page of records.
@@ -35,6 +36,17 @@ const loginService = {
   },
   setShortname (record, pin, shortname) {
     console.log(record, pin, shortname)
+
+    base(TABLE_NAME).select({
+      filterByFormula: `SEARCH(LOWER('${shortname}'),LOWER({Shortname}))`,
+      maxRecords: 1
+    }).firstPage((err, records) => {
+      if (err) {
+        console.error(err)
+        return
+      }
+      console.log('already registered:', records)
+    })
     base(TABLE_NAME).update([{
       id: record.id,
       fields: {
@@ -47,9 +59,7 @@ const loginService = {
         console.error(err)
         return
       }
-      records.forEach(function (record) {
-        console.log(record.get('Score'))
-      })
+      console.log(records)
     })
   }
 }
