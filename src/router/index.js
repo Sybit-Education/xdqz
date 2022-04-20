@@ -1,35 +1,30 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import LoginView from '@/views/LoginView.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home
+    name: 'Login',
+    component: LoginView
   },
   {
     path: '/highscore',
     name: 'Highscore',
-    component: () => import('../views/HighscoreView.vue')
+    component: () => import(/* webpackChunkName: "highscore" */ '../views/HighscoreView.vue')
   },
   {
-    path: '/login',
-    name: 'Login',
-    component: () => import('../views/LoginView.vue')
+    path: '/help',
+    name: 'Help',
+    component: () => import(/* webpackChunkName: "help" */ '../views/HelpView.vue')
+
   },
   {
     path: '/end',
     name: 'End',
     component: () => import('../views/End.vue')
-  },
-  {
-    path: '/about',
-    name: 'About',
-    component: () =>
-      import(/* webpackChunkName: "about" */ '../views/About.vue')
   },
   {
     path: '/question',
@@ -40,7 +35,8 @@ const routes = [
 ]
 
 const router = new VueRouter({
-  routes
+  routes,
+  mode: 'history'
 })
 
 export default router
