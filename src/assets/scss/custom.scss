@@ -2,6 +2,26 @@
 
 $primary: #b51783;
 
+button-primary{
+    border-bottom: 6px inset rgba(0,0,0,.5);
+    border-left: 6px inset rgba(0,0,0,.5);
+    border-right: 6px inset rgba(255,255,255,.5);
+    border-top: 6px inset rgba(255,255,255,.5);
+    color: white;
+    cursor: pointer;
+    &:hover{
+    background: #BCBCBC;
+    }
+}
+
 // Import Bootstrap and BootstrapVue source SCSS files
 @import 'bootstrap/scss/bootstrap.scss';
 @import 'bootstrap-vue/src/index.scss';
+
+
+@font-face {
+    font-family: 'Common Pixel';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Common Pixel'), url('https://fonts.cdnfonts.com/s/7553/COMMP___.woff') format('woff');
+}
