@@ -100,12 +100,26 @@ export default {
   margin-right: auto;
 }
 .react-code-input > input {
-  font-family: var(--font-family-monospace) !important;
+  font-family: 'Common Pixel' !important;
 }
 .shortname-input {
   margin-top: 1rem;
   width: 340px;
   margin-left: auto;
   margin-right: auto;
+}
+.b-card-text{
+  font-family: 'Common Pixel' !important;
+}
+.login__button{
+  border-bottom: 6px inset rgba(0,0,0,.5);
+  border-left: 6px inset rgba(0,0,0,.5);
+  border-right: 6px inset rgba(255,255,255,.5);
+  border-top: 6px inset rgba(255,255,255,.5);
+  color: white;
+  cursor: pointer;
+  &:hover{
+    background: #BCBCBC;
+  }
 }
 </style>
