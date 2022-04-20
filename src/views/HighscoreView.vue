@@ -1,8 +1,18 @@
 <template>
-  <b-container class="highscore">
-    <h1>Highscore</h1>
+  <b-container fluid class="highscore">
+    <b-row>
+      <b-col><b-img src="/img/Highscore.png" center class="highscore__banner"/></b-col>
+    </b-row>
     <hr>
-    <highscore-item v-for="item in highscore" :key="item.id" :item="item"></highscore-item>
+    <b-row>
+      <div class="highscore__columns">
+        <highscore-item
+          v-for="(item, index) in highscore"
+          :key="item.id"
+          :item="item" :rank="index+1"
+        />
+      </div>
+    </b-row>
   </b-container>
 </template>
 
@@ -40,6 +50,26 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss">
+html, h1, p {
+  background-color: rgba(0, 0, 0, 0.9);
+  color: aliceblue;
+}
+#app {
+  background-color: rgba(0, 0, 0, 0.9);
+}
+.highscore {
+  &__banner {
+    height: auto;
+    max-height: 200px;
+  }
+  &__columns {
+   column-count: 2;
+   column-gap:2em;
+   column-width: calc(100vw  / 2 - 2em);
+   column-rule-style:dotted;
+   column-rule-width:10px;
+   column-rule-color:silver;
+  }
+}
 </style>
