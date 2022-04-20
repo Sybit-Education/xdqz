@@ -31,7 +31,6 @@ export default {
   },
   watch: {
     question () {
-      console.log(this.question.solution)
       this.init()
     }
   },

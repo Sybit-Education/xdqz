@@ -42,7 +42,6 @@ const highscoreService = {
       if (err) {
         console.error(err)
       }
-      console.log(records[0])
       base(TABLE_NAME).update([
         {
           id: records[0].id,
