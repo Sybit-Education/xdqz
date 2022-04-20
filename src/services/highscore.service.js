@@ -3,7 +3,7 @@ import base from './airtable.service'
 const TABLE_NAME = 'User'
 
 const highscoreService = {
-  getHighscore () {
+  async getHighscore () {
     return new Promise((resolve, reject) => {
       const resultList = []
 
@@ -28,8 +28,6 @@ const highscoreService = {
           }
         }
       )
-      console.log('resultList', resultList)
-
       resolve(resultList)
     })
   }
