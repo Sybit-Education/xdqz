@@ -8,7 +8,10 @@ const highscoreService = {
       const resultList = []
 
       base(TABLE_NAME).select({
-        sort: [{ field: 'Score', direction: 'desc' }],
+        sort: [
+          { field: 'Score', direction: 'desc' },
+          { field: 'Shortname', direction: 'asc' }
+        ],
         filterByFormula: "NOT({Score} = '')",
         maxRecords: 100
       }).eachPage(
