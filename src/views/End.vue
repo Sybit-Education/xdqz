@@ -3,7 +3,7 @@
     <b-col align="center">
       <h1 class="mb-5">Dein Ergebnis</h1>
       <h3>Herzlichen Glückwunsch du hast</h3>
-      <h2>1000P</h2>
+      <h2>{{ score }}P</h2>
       <h3>erreicht!</h3>
       <h2 class="mt-5">
         Neustart in <br>
@@ -16,6 +16,8 @@
 </template>
 
 <script>
+import highscoreService from '@/services/highscore.service'
+
 export default {
   name: 'End',
   data () {
@@ -23,7 +25,13 @@ export default {
       countdown: 15
     }
   },
+  computed: {
+    score () {
+      return this.$store.getters.getScore
+    }
+  },
   created () {
+    highscoreService.setHighscore(this.$store.getters.getUser, this.$store.getters.getScore)
     const interval = setInterval(() => {
       if (this.countdown <= 0) {
         clearInterval(interval)
@@ -35,7 +43,8 @@ export default {
   },
   methods: {
     restart () {
-      // TODO: reset user and score
+      this.$store.state.score = 0
+      this.$store.state.user = ''
       this.$router.push({ name: 'Login' })
     }
   }

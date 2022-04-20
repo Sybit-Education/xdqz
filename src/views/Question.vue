@@ -59,8 +59,7 @@ export default {
     nextQuestion () {
       this.questionIndex++
       if (this.questionIndex === 9) {
-        // TODO: push to end page
-        this.$router.push({ name: 'Home' })
+        this.$router.push({ name: 'End' })
       }
     },
     initList (list, checkUser) {
