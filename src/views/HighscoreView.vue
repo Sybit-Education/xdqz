@@ -16,7 +16,8 @@ export default {
   name: 'HighscoreView',
   data () {
     return {
-      highscore: []
+      highscore: [],
+      refreshSeconds: 20
     }
   },
   mixins: [crono],
@@ -24,7 +25,7 @@ export default {
     this.getData()
   },
   cron: {
-    time: 20 * 1000, // seconds * milliseconds
+    time: this.refreshSeconds * 1000, // seconds * milliseconds
     method: 'getData'
   },
   methods: {
