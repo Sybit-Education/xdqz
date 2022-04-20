@@ -13,7 +13,7 @@ const highscoreService = {
           { field: 'Shortname', direction: 'asc' }
         ],
         filterByFormula: "NOT({Score} = '')",
-        maxRecords: 100
+        maxRecords: 50
       }).eachPage(
         function page (partialRecords) {
           // This function (`page`) will get called for each page of records.

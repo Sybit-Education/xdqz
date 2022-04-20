@@ -42,7 +42,7 @@ export default {
   },
   methods: {
     delayedShow () {
-      const delay = 200 * this.rank
+      const delay = 100 * this.rank
       setTimeout(() => {
         this.show = true
       }, delay)
