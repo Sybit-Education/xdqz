@@ -18,24 +18,18 @@
           </b-col>
         </b-row>
       </b-card-text>
-      <template v-if="validPin">
-        <b-card-text v-if="usedPin">
-          Sorry, pin already used by: {{ usedPin }}
-        </b-card-text>
-        <b-card-text v-else>
-          Enter your shortname
-
-          <b-input class="shortname-input" size="lg" v-model="shortname"></b-input>
-        </b-card-text>
-      </template>
-      <b-card-text v-if="errorPin" class="login__error">
-        <b-alert variant="danger" show >Invalid PIN-Code</b-alert>
+      <b-card-text v-if="errorMessage" class="login__error">
+        <b-alert variant="danger" show>{{ errorMessage }}</b-alert>
         <b-button @click="reload">Retry</b-button>
+      </b-card-text>
+      <b-card-text v-else-if="pin">
+        Enter your shortname
+        <b-input class="shortname-input" size="lg" v-model="shortname"></b-input>
       </b-card-text>
     </b-card>
     <hr>
     <b-row>
-      <b-button size="lg" variant="primary" class="login__button" :disabled="errorPin" @click="start">
+      <b-button size="lg" variant="primary" class="login__button" :disabled="!result || !shortname" @click="start">
         Start!
       </b-button>
     </b-row>
@@ -55,20 +49,36 @@ export default {
   data () {
     return {
       pin: null,
-      shortname: '',
-      result: null
+      shortname: null,
+      result: null,
+      errorMessage: ''
     }
   },
   methods: {
-    onPinComplete (pin) {
-      loginService.verifyPin(pin).then((result) => {
-        this.result = result
-        this.pin = pin
-      })
+    async onPinComplete (pin) {
+      this.errorMessage = ''
+      const result = await loginService.verifyPin(pin)
+      if (result.length === 1) {
+        if (result?.[0].Shortname) {
+          this.errorMessage = `Pin already used by ${result[0].Shortname}`
+        } else {
+          this.pin = pin
+          this.result = result
+        }
+      } else if (result?.length === 0 && pin.length === 6) {
+        this.errorMessage = 'Pin Invalid'
+      }
     },
     start () {
       if (this.shortname && this.shortname.length > 0 && this.shortname.length < 5) {
-        loginService.setShortname(this.result?.[0], this.pin, this.shortname)
+        loginService.isUserUsed(this.shortname).then(isUsed => {
+          if (isUsed) {
+            this.errorMessage = `${this.shortname} already played!`
+          } else {
+            loginService.setShortname(this.result?.[0], this.pin, this.shortname)
+            this.$router.push({ name: 'Question' })
+          }
+        })
       } else {
         console.error('invalid shortname')
       }
@@ -78,6 +88,7 @@ export default {
       this.pin = null
       this.shortname = ''
       this.$refs.pinRef.values = ['', '', '', '', '', '']
+      this.errorMessage = ''
     }
   },
   computed: {
@@ -99,9 +110,11 @@ export default {
   margin-left: auto;
   margin-right: auto;
 }
+
 .react-code-input > input {
   font-family: 'Common Pixel' !important;
 }
+
 .shortname-input {
   margin-top: 1rem;
   width: 340px;

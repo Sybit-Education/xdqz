@@ -1,11 +1,11 @@
 import base from './airtable.service'
+import store from '@/store'
 
 const TABLE_NAME = 'User'
 
 const loginService = {
 
-  verifyPin (pin) {
-    console.log(pin)
+  async verifyPin (pin) {
     return new Promise((resolve, reject) => {
       const resultList = []
 
@@ -13,40 +13,41 @@ const loginService = {
         filterByFormula: `SEARCH(LOWER('${pin}'),LOWER({Pin}))`,
         maxRecords: 1
       }).eachPage(
-        function page (partialRecords) {
+        function page (partialRecords, fetchNextPage) {
           // This function (`page`) will get called for each page of records.
-          partialRecords.forEach((partialRecord) => {
+          partialRecords.forEach(partialRecord => {
             resultList.push({
               id: partialRecord.id,
               ...partialRecord.fields
             })
           })
+          fetchNextPage()
         },
         function done (err) {
           if (err) {
             console.error(err)
             reject(err)
           }
+          resolve(resultList)
         }
       )
-      console.log('resultList', resultList)
-
-      resolve(resultList)
+    })
+  },
+  isUserUsed (shortname) {
+    return new Promise((resolve, reject) => {
+      base(TABLE_NAME).select({
+        filterByFormula: `SEARCH(LOWER('${shortname}'),LOWER({Shortname}))`,
+        maxRecords: 1
+      }).firstPage((err, records) => {
+        if (err) {
+          console.error(err)
+          reject(err)
+        }
+        resolve(records.length > 0)
+      })
     })
   },
   setShortname (record, pin, shortname) {
-    console.log(record, pin, shortname)
-
-    base(TABLE_NAME).select({
-      filterByFormula: `SEARCH(LOWER('${shortname}'),LOWER({Shortname}))`,
-      maxRecords: 1
-    }).firstPage((err, records) => {
-      if (err) {
-        console.error(err)
-        return
-      }
-      console.log('already registered:', records)
-    })
     base(TABLE_NAME).update([{
       id: record.id,
       fields: {
@@ -57,9 +58,10 @@ const loginService = {
     ], function (err, records) {
       if (err) {
         console.error(err)
-        return
       }
-      console.log(records)
+    },
+    async function done () {
+      await store.dispatch('setUser', shortname)
     })
   }
 }
