@@ -1,6 +1,9 @@
 <template>
-  <b-button class="w-100 mb-3" @click="clicked()">
-    {{ answer.id }}: {{ answer.answer }}
+  <b-button class="w-100 mb-3" variant="secondary" @click="clicked()">
+    <h3 class="d-flex justify-content-start mt-1">
+      {{ answer.id }}:
+      {{ answer.answer }}
+    </h3>
   </b-button>
 </template>
 
