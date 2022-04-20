@@ -67,6 +67,7 @@ export default {
       }
     },
     initList (list, checkUser) {
+      const user = this.$store.getters.getUser
       this.shuffle(list)
       list.forEach(question => {
         switch (question.level) {
@@ -74,8 +75,7 @@ export default {
             question.levelId = 1
             if (this.easy < 4) {
               if (checkUser) {
-                // TODO: get user from store
-                if (this.user !== question.source) {
+                if (user !== question.source) {
                   this.questions.push(question)
                   this.easy++
                 }
@@ -89,7 +89,7 @@ export default {
             if (this.medium < 3) {
               question.levelId = 2
               if (checkUser) {
-                if (this.user !== question.source) {
+                if (user !== question.source) {
                   this.questions.push(question)
                   this.medium++
                 }
@@ -103,7 +103,7 @@ export default {
             question.levelId = 3
             if (this.difficult < 3) {
               if (checkUser) {
-                if (this.user !== question.source) {
+                if (user !== question.source) {
                   this.questions.push(question)
                   this.difficult++
                 }
