@@ -1,7 +1,7 @@
 <template>
   <b-container fluid class="highscore">
     <b-row>
-      <b-col><b-img src="/img/banner.png" center class="highscore__banner"/></b-col>
+      <b-col><b-img src="/img/Highscore.png" center class="highscore__banner"/></b-col>
     </b-row>
     <hr>
     <b-row>
