@@ -11,13 +11,14 @@ import { crono } from 'vue-crono'
 import highscoreService from '@/services/highscore.service'
 import HighscoreItem from '@/components/HighscoreItem.vue'
 
+const REFRESH_SECONDS = 20
+
 export default {
   components: { HighscoreItem },
   name: 'HighscoreView',
   data () {
     return {
-      highscore: [],
-      refreshSeconds: 20
+      highscore: []
     }
   },
   mixins: [crono],
@@ -25,7 +26,7 @@ export default {
     this.getData()
   },
   cron: {
-    time: this.refreshSeconds * 1000, // seconds * milliseconds
+    time: REFRESH_SECONDS * 1000, // seconds * milliseconds
     method: 'getData'
   },
   methods: {
