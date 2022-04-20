@@ -15,6 +15,7 @@ const questionService = {
               question: partialRecord?.fields?.Question,
               source: partialRecord?.fields?.Source,
               solution: partialRecord?.fields?.Solution,
+              level: partialRecord?.fields?.Level,
               answers: [
                 {
                   id: 'A',
