@@ -33,6 +33,28 @@ const highscoreService = {
       )
       resolve(resultList)
     })
+  },
+  setHighscore (user, score) {
+    base(TABLE_NAME).select({
+      filterByFormula: `SEARCH(LOWER('${user}'),LOWER({Shortname}))`,
+      maxRecords: 1
+    }).firstPage((err, records) => {
+      if (err) {
+        console.error(err)
+      }
+      base(TABLE_NAME).update([
+        {
+          id: records[0].id,
+          fields: {
+            Score: score
+          }
+        }
+      ], function (err, records) {
+        if (err) {
+          console.error(err)
+        }
+      })
+    })
   }
 }
 
