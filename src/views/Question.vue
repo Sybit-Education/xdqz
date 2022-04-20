@@ -1,5 +1,7 @@
 <template>
   <b-container>
+    <header-item />
+
     <b-col v-if="countdown > 0" align="center">
       <h2 class="mt-5">
         Spiel startet in <br>
@@ -19,11 +21,12 @@
 </template>
 
 <script>
+import HeaderItem from '@/components/HeaderItem.vue'
 import Question from '@/components/question/Question'
 import questionService from '@/services/question.service'
 
 export default {
-  components: { Question },
+  components: { HeaderItem, Question },
   data () {
     return {
       questions: [],
@@ -60,7 +63,7 @@ export default {
       this.questionIndex++
       if (this.questionIndex === 9) {
         // TODO: push to end page
-        this.$router.push({ name: 'Home' })
+        this.$router.push({ name: 'Login' })
       }
     },
     initList (list, checkUser) {
