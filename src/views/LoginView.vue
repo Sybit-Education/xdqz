@@ -4,7 +4,7 @@
 
     <b-card class="login__pin-card">
       <b-card-text>
-        Enter your PIN-Code
+        <h3 class="text-center">Enter your PIN-Code</h3>
       </b-card-text>
       <b-card-text>
         <b-row>
@@ -25,8 +25,13 @@
         <b-button @click="reload">Retry</b-button>
       </b-card-text>
       <b-card-text v-else-if="pin">
-        Enter your shortname
-        <b-input class="shortname-input" size="lg" v-model="shortname"></b-input>
+        <h3 class="text-center">Enter your shortname</h3>
+        <b-alert variant="warning" show>
+          <h3>Warning: Every shortname has <strong>only one try</strong> and is assigned
+          to the prices later. Verify if it is really your shortname!
+          </h3>
+        </b-alert>
+        <b-input class="shortname-input" size="lg" v-model="shortname" placeholder="e.g. tre"></b-input>
       </b-card-text>
     </b-card>
     <hr>
