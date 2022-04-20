@@ -3,14 +3,17 @@ import base from './airtable.service'
 const TABLE_NAME = 'User'
 
 const highscoreService = {
-  getHighscore () {
+  async getHighscore () {
     return new Promise((resolve, reject) => {
       const resultList = []
 
       base(TABLE_NAME).select({
-        sort: [{ field: 'Score', direction: 'desc' }],
+        sort: [
+          { field: 'Score', direction: 'desc' },
+          { field: 'Shortname', direction: 'asc' }
+        ],
         filterByFormula: "NOT({Score} = '')",
-        maxRecords: 100
+        maxRecords: 50
       }).eachPage(
         function page (partialRecords) {
           // This function (`page`) will get called for each page of records.
@@ -28,8 +31,6 @@ const highscoreService = {
           }
         }
       )
-      console.log('resultList', resultList)
-
       resolve(resultList)
     })
   }
