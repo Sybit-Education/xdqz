@@ -1,5 +1,7 @@
 <template>
   <b-container>
+    <header-item />
+
     <b-col v-if="countdown > 0" align="center">
       <h2 class="mt-5">
         Spiel startet in <br>
@@ -19,11 +21,12 @@
 </template>
 
 <script>
+import HeaderItem from '@/components/HeaderItem.vue'
 import Question from '@/components/question/Question'
 import questionService from '@/services/question.service'
 
 export default {
-  components: { Question },
+  components: { HeaderItem, Question },
   data () {
     return {
       questions: [],

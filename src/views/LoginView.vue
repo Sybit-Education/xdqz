@@ -1,5 +1,7 @@
 <template>
   <b-container class="login">
+    <header-item help-button/>
+
     <b-card class="login__pin-card">
       <b-card-text>
         Enter your PIN-Code
@@ -39,12 +41,13 @@
 <script>
 
 import CodeInput from 'vue-verification-code-input'
+import HeaderItem from '@/components/HeaderItem.vue'
 import loginService from '@/services/login.service'
 
 export default {
   name: 'LoginView',
   components: {
-    CodeInput
+    CodeInput, HeaderItem
   },
   data () {
     return {
