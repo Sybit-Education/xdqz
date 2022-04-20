@@ -113,7 +113,7 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style lang="scss">
 .pin-input {
   margin-left: auto;
   margin-right: auto;
