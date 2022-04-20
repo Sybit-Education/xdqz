@@ -1,4 +1,5 @@
 import base from './airtable.service'
+import store from '@/store'
 
 const TABLE_NAME = 'User'
 
@@ -60,6 +61,9 @@ const loginService = {
         return
       }
       console.log(records)
+    },
+    async function done () {
+      await store.dispatch('setUser', shortname)
     })
   }
 }
