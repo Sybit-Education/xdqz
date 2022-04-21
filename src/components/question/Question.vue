@@ -1,17 +1,17 @@
 <template>
   <div>
-    <h1>{{ question.question }}</h1>
+    <b-row id="timeAndScore">
+      <b-col align="left">
+        <h2>Score: <strong class="score">{{ score }}</strong></h2>
+      </b-col>
+      <b-col align="right">
+        <h2>Zeit: <strong class="countdown">{{ countdown }}</strong></h2>
+      </b-col>
+    </b-row>
+    <h1 id="questionText">{{ question.question }}</h1>
     <b-row class="mt-2">
       <b-col cols="6" v-for="answer in question.answers" :key="answer.id">
         <answer :answer="answer" @clicked="checkSolution($event)" />
-      </b-col>
-    </b-row>
-    <b-row>
-      <b-col align="left">
-        <h4>Score: <strong class="score">{{ score }}</strong></h4>
-      </b-col>
-      <b-col align="right">
-        <h4>Zeit: <strong class="countdown">{{ countdown }}</strong></h4>
       </b-col>
     </b-row>
   </div>
@@ -97,5 +97,14 @@ export default {
 <style scoped>
 .score, .countdown {
   color: #b51783;
+}
+
+#questionText{
+  margin-bottom: 175px;
+
+}
+
+#timeAndScore{
+  margin-bottom: 150px;
 }
 </style>
