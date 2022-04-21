@@ -36,12 +36,6 @@
         <h3>Start!</h3>
       </b-button>
     </b-row>
-    <b-row>
-      <random-sprite />
-      <b-button size="lg" variant="primary" class="login__button" :disabled="!result || !shortname" @click="start">
-        Start!
-      </b-button>
-    </b-row>
     <section id="rules">
       <Strong>
         <p>
