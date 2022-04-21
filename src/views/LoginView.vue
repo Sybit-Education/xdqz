@@ -34,27 +34,27 @@
         <b-input class="shortname-input" size="lg" v-model="shortname" placeholder="e.g. tre"></b-input>
       </b-card-text>
     </b-card>
-    <hr>
     <b-row>
       <b-button size="lg" variant="primary" class="login__button" :disabled="!result || !shortname" @click="start">
         Start!
       </b-button>
     </b-row>
-
-    <hr>
     <section id="rules">
-      <h3>
-        1.) Pro Spieler nur 1 Versuch!
-      </h3>
+      <Strong>
+        <p>
+          1.) Pro Spieler nur 1 Versuch!
+        </p>
+      </Strong>
       <br>
-      <h3>
+      <p>
         2.) 30 sec. pro Frage, je schneller umso mehr Punkte gibt´s!
-      </h3>
+      </p>
       <br>
-      <h3>
+      <p>
         3.) Es gibt kein Zurück ;)
-      </h3>
+      </p>
     </section>
+    <b-img src="/img/SyPacman.png" alt="Packman" class="packman"/>
   </b-container>
 </template>
 
@@ -147,6 +147,14 @@ export default {
 .b-card-text{
   font-family: 'Common Pixel' !important;
 }
+.login__pin-card{
+margin-top: 50px;
+margin-bottom: 40px;
+}
+.row{
+  display: flex;
+  justify-content: center;
+}
 .login__button{
   border-bottom: 6px inset rgba(0,0,0,.5);
   border-left: 6px inset rgba(0,0,0,.5);
@@ -158,8 +166,13 @@ export default {
     background: #BCBCBC;
   }
 }
+.packman{
 
+}
 #rules{
-  margin-top: 75px;
+  margin-top: 45px;
+  display: block;
+  text-align: center;
+  font-size: 15px;
 }
 </style>

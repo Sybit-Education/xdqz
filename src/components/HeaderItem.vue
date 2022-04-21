@@ -35,5 +35,6 @@ nav {
   margin-bottom: 1.5rem;
   padding-bottom: 0.5rem;
   border-bottom: 10px dotted #222222;
+  margin-top: 30px
 }
 </style>
