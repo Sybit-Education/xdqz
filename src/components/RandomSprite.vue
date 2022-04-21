@@ -11,7 +11,11 @@ export default {
       imageList: [
         '/img/sprites/Controller.png',
         '/img/sprites/SyGhost.png',
-        '/img/sprites/SyPacman.png'
+        '/img/sprites/SyPacman.png',
+        'img/sprites/bird.png',
+        'img/sprites/ghost.png',
+        'img/sprites/heart.png',
+        'img/sprites/star.png'
       ]
     }
   },
