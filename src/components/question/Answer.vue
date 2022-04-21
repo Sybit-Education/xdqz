@@ -1,11 +1,11 @@
 <template>
   <div class="mt-3">
     <b-button-group size="lg">
-      <b-button id="answerButtons" variant="secondary" @click="clicked()">
-        <h3 class="d-flex justify-content-start mt-1">
+      <b-button id="answerButtons"  @click="clicked()">
+        <h1 class="d-flex justify-content-start mt-1">
           {{ answer.id }}:
           {{ answer.answer }}
-        </h3>
+        </h1>
       </b-button>
     </b-button-group>
   </div>
@@ -35,6 +35,7 @@ export default {
   height: 250px;
   width: 400px;
   margin-bottom: 50px;
+  background: #b51783;
 }
 
 </style>
