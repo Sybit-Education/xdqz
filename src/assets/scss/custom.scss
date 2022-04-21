@@ -2,26 +2,27 @@
 
 $primary: #b51783;
 
-button-primary{
-    border-bottom: 6px inset rgba(0,0,0,.5);
-    border-left: 6px inset rgba(0,0,0,.5);
-    border-right: 6px inset rgba(255,255,255,.5);
-    border-top: 6px inset rgba(255,255,255,.5);
+body input[type="button"]{
+    border-bottom: 8px inset rgba(0,0,0,.5);
+    border-left: 8px inset rgba(0,0,0,.5);
+    border-right: 8px inset rgba(255,255,255,.5);
+    border-top: 8px inset rgba(255,255,255,.5);
     color: white;
     cursor: pointer;
+    margin-left:17px;
     &:hover{
-    background: #BCBCBC;
+      background: #BCBCBC;
     }
 }
-
 // Import Bootstrap and BootstrapVue source SCSS files
 @import 'bootstrap/scss/bootstrap.scss';
 @import 'bootstrap-vue/src/index.scss';
 
-
+//font
 @font-face {
-    font-family: 'Common Pixel';
-    font-style: normal;
-    font-weight: 400;
-    src: local('Common Pixel'), url('https://fonts.cdnfonts.com/s/7553/COMMP___.woff') format('woff');
+  font-family: 'Press Start 2P';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/pressstart2p/v12/e3t4euO8T-267oIAQAu6jDQyK3nYivN04w.woff2);
 }

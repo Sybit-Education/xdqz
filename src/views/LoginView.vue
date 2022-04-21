@@ -27,7 +27,6 @@
         <b-input class="shortname-input" size="lg" v-model="shortname"></b-input>
       </b-card-text>
     </b-card>
-    <hr>
     <b-row>
       <b-button size="lg" variant="primary" class="login__button" :disabled="!result || !shortname" @click="start">
         Start!
@@ -112,7 +111,7 @@ export default {
 }
 
 .react-code-input > input {
-  font-family: 'Common Pixel' !important;
+  font-family: 'Press Start 2P' !important;
 }
 
 .shortname-input {
@@ -121,18 +120,29 @@ export default {
   margin-left: auto;
   margin-right: auto;
 }
-.b-card-text{
-  font-family: 'Common Pixel' !important;
+.card-text{
+  font-family: 'Press Start 2P' !important;
+}
+.row{
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  margin-top: 30px;
 }
 .login__button{
-  border-bottom: 6px inset rgba(0,0,0,.5);
-  border-left: 6px inset rgba(0,0,0,.5);
-  border-right: 6px inset rgba(255,255,255,.5);
-  border-top: 6px inset rgba(255,255,255,.5);
+  border-bottom: 8px inset rgba(0,0,0,.5);
+  border-left: 8px inset rgba(0,0,0,.5);
+  border-right: 8px inset rgba(255,255,255,.5);
+  border-top: 8px inset rgba(255,255,255,.5);
   color: white;
   cursor: pointer;
-  &:hover{
-    background: #BCBCBC;
-  }
+  margin-left:17px;
 }
+.container{
+  display: block;
+ margin-top: 50px;
+}
+@media screen and (min-width: 801px) {
+}
+
 </style>
