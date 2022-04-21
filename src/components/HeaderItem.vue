@@ -7,9 +7,6 @@
       </b-col>
       <b-col cols="8">
       </b-col>
-      <b-col cols="2">
-        <b-button v-if="helpButton" size="lg" to="/help"><b-icon icon="question-circle" /> Help</b-button>
-      </b-col>
     </b-row>
   </nav>
 </template>
@@ -34,6 +31,6 @@ export default {
 nav {
   margin-bottom: 1.5rem;
   padding-bottom: 0.5rem;
-  border-bottom: 10px dotted #222222;
+  margin-top: 50px
 }
 </style>
