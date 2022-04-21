@@ -1,17 +1,17 @@
 <template>
   <div>
-    <h1>{{ question.question }}</h1>
+    <b-row id="timeAndScore">
+      <b-col align="left">
+        <h2>Score: <strong class="score">{{ score }}</strong></h2>
+      </b-col>
+      <b-col align="right">
+        <h2>Zeit: <strong class="countdown">{{ countdown }}</strong></h2>
+      </b-col>
+    </b-row>
+    <h1 id="questionText">{{ question.question }}</h1>
     <b-row class="mt-2">
       <b-col cols="6" v-for="answer in question.answers" :key="answer.id">
         <answer :answer="answer" @clicked="checkSolution($event)" />
-      </b-col>
-    </b-row>
-    <b-row>
-      <b-col align="left">
-        <h4>Score: <strong class="score">1000</strong></h4>
-      </b-col>
-      <b-col align="right">
-        <h4>Zeit: <strong class="countdown">{{ countdown }}</strong></h4>
       </b-col>
     </b-row>
   </div>
@@ -37,7 +37,14 @@ export default {
   data () {
     return {
       countdown: 30,
-      interval: undefined
+      interval: undefined,
+      start: undefined,
+      millis: 0
+    }
+  },
+  computed: {
+    score () {
+      return this.$store.getters.getScore
     }
   },
   created () {
@@ -49,18 +56,38 @@ export default {
       if (this.interval) {
         clearInterval(this.interval)
       }
+      this.start = Date.now()
       this.interval = setInterval(() => {
         if (this.countdown <= 0) {
-          clearInterval(this.interval)
+          this.cancelInterval()
           this.$emit('next')
         } else {
           this.countdown--
         }
       }, 1000)
     },
-    checkSolution (solution) {
-      // TODO: save in store solution === this.question.solution
+    cancelInterval () {
       clearInterval(this.interval)
+      const usedMillis = Date.now() - this.start
+      this.millis = 30000 - usedMillis
+    },
+    checkSolution (solution) {
+      this.cancelInterval()
+      let score = 0
+      if (solution === this.question.solution) {
+        switch (this.question.level) {
+          case 'easy':
+            score = this.millis * 10
+            break
+          case 'medium':
+            score = this.millis * 20
+            break
+          case 'difficult':
+            score = this.millis * 30
+            break
+        }
+        this.$store.dispatch('addScore', score)
+      }
       this.$emit('next')
     }
   }
@@ -70,5 +97,14 @@ export default {
 <style scoped>
 .score, .countdown {
   color: #b51783;
+}
+
+#questionText{
+  margin-bottom: 175px;
+
+}
+
+#timeAndScore{
+  margin-bottom: 150px;
 }
 </style>

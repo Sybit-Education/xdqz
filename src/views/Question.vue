@@ -1,17 +1,20 @@
 <template>
   <b-container>
+    <header-item />
+
     <b-col v-if="countdown > 0" align="center">
       <h2 class="mt-5">
         Spiel startet in <br>
         <span class="countdown">{{ countdown }}</span>
       </h2>
       <h4><strong>Viel Erfolg!</strong></h4>
+      <random-sprite />
     </b-col>
     <b-col v-else align="center">
-      <h1>Frage {{ questionLabel }}</h1>
-      <b-progress :value="questionLabel" :max="10" variant="primary" />
+      <b-progress id="progressBar" height="2rem"  :value="questionLabel" :max="10" variant="primary" />
       <span class="d-flex justify-content-end" style="color: grey">{{ questionLabel }}/10</span>
-      <div v-if="questions.length">
+      <div class="question" v-if="questions.length">
+        <random-sprite />
         <question :question="questions[questionIndex]" class="mb-5" @next="nextQuestion" />
       </div>
     </b-col>
@@ -19,11 +22,13 @@
 </template>
 
 <script>
+import HeaderItem from '@/components/HeaderItem.vue'
 import Question from '@/components/question/Question'
 import questionService from '@/services/question.service'
+import RandomSprite from '@/components/RandomSprite.vue'
 
 export default {
-  components: { Question },
+  components: { HeaderItem, Question, RandomSprite },
   data () {
     return {
       questions: [],
@@ -58,12 +63,12 @@ export default {
   methods: {
     nextQuestion () {
       this.questionIndex++
-      if (this.questionIndex === 9) {
-        // TODO: push to end page
-        this.$router.push({ name: 'Home' })
+      if (this.questionIndex === 10) {
+        this.$router.push({ name: 'End' })
       }
     },
     initList (list, checkUser) {
+      const user = this.$store.getters.getUser
       this.shuffle(list)
       list.forEach(question => {
         switch (question.level) {
@@ -71,8 +76,7 @@ export default {
             question.levelId = 1
             if (this.easy < 4) {
               if (checkUser) {
-                // TODO: get user from store
-                if (this.user !== question.source) {
+                if (user !== question.source) {
                   this.questions.push(question)
                   this.easy++
                 }
@@ -86,7 +90,7 @@ export default {
             if (this.medium < 3) {
               question.levelId = 2
               if (checkUser) {
-                if (this.user !== question.source) {
+                if (user !== question.source) {
                   this.questions.push(question)
                   this.medium++
                 }
@@ -100,7 +104,7 @@ export default {
             question.levelId = 3
             if (this.difficult < 3) {
               if (checkUser) {
-                if (this.user !== question.source) {
+                if (user !== question.source) {
                   this.questions.push(question)
                   this.difficult++
                 }
@@ -143,5 +147,13 @@ h2 {
   color: black;
   font-weight: bold;
   font-size: 100px;
+}
+
+.question{
+  margin-top: 50px;
+}
+
+#progressBar{
+  margin-top: 50px;
 }
 </style>
