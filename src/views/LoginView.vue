@@ -36,6 +36,7 @@
     </b-card>
     <hr>
     <b-row>
+      <random-sprite />
       <b-button size="lg" variant="primary" class="login__button" :disabled="!result || !shortname" @click="start">
         Start!
       </b-button>
@@ -48,11 +49,14 @@
 import CodeInput from 'vue-verification-code-input'
 import HeaderItem from '@/components/HeaderItem.vue'
 import loginService from '@/services/login.service'
+import RandomSprite from '@/components/RandomSprite.vue'
 
 export default {
   name: 'LoginView',
   components: {
-    CodeInput, HeaderItem
+    CodeInput,
+    HeaderItem,
+    RandomSprite
   },
   data () {
     return {
