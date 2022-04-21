@@ -1,9 +1,11 @@
 <template>
-  <b-container>
+  <b-container class="endSite">
+    <header-item />
     <b-col align="center">
-      <h1 class="mb-5">Dein Ergebnis</h1>
-      <h3>Herzlichen Glückwunsch du hast</h3>
-      <h2>{{ score }} Punkte</h2>
+      <br>
+      <h1 class="mb-5">Dein Ergebnis</h1><br>
+      <h3>Herzlichen Glückwunsch du hast</h3><br>
+      <h2>{{ score }} Punkte</h2><br>
       <h3>erreicht!</h3>
       <h2 class="mt-5">
         Neustart in <br>
@@ -17,8 +19,10 @@
 
 <script>
 import highscoreService from '@/services/highscore.service'
+import HeaderItem from '@/components/HeaderItem.vue'
 
 export default {
+  components: { HeaderItem },
   name: 'End',
   data () {
     return {
@@ -65,6 +69,10 @@ h1, h2 {
 
 #restart{
   background-color: #b51783;
+}
+
+.endSite{
+  font-family: press_start_2pregular;
 }
 
 </style>

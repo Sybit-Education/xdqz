@@ -2,10 +2,10 @@
   <b-container>
     <header-item />
 
-    <b-col v-if="countdown > 0" align="center">
+    <b-col class="spielStart" v-if="countdown > 0" align="center">
       <h2 class="mt-5">
         Spiel startet in <br>
-        <span class="countdown">{{ countdown }}</span>
+        <div class="countdown">{{ countdown }}</div>
       </h2>
       <h4><strong>Viel Erfolg!</strong></h4>
       <random-sprite />
@@ -147,6 +147,7 @@ h2 {
   color: black;
   font-weight: bold;
   font-size: 100px;
+  margin: 50px 0 50px;
 }
 
 .question{
@@ -155,5 +156,9 @@ h2 {
 
 #progressBar{
   margin-top: 50px;
+}
+
+.spielStart{
+  font-family: press_start_2pregular;
 }
 </style>

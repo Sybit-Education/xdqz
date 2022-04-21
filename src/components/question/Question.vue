@@ -2,10 +2,10 @@
   <div>
     <b-row id="timeAndScore">
       <b-col align="left">
-        <h2>Score: <strong class="score">{{ score }}</strong></h2>
+        <h5>Score: <strong class="score">{{ score }}</strong></h5>
       </b-col>
       <b-col align="right">
-        <h2>Zeit: <strong class="countdown">{{ countdown }}</strong></h2>
+        <h5>Zeit: <strong class="countdown">{{ countdown }}</strong></h5>
       </b-col>
     </b-row>
     <h1 id="questionText">{{ question.question }}</h1>
@@ -101,10 +101,10 @@ export default {
 
 #questionText{
   margin-bottom: 175px;
-
 }
 
 #timeAndScore{
   margin-bottom: 150px;
+  font-family: 'press_start_2pregular' !important;
 }
 </style>
