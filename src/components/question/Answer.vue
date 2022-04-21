@@ -1,10 +1,14 @@
 <template>
-  <b-button class="w-100 mb-3" variant="secondary" @click="clicked()">
-    <h3 class="d-flex justify-content-start mt-1">
-      {{ answer.id }}:
-      {{ answer.answer }}
-    </h3>
-  </b-button>
+  <div class="mt-3">
+    <b-button-group size="lg">
+      <b-button id="answerButtons"  @click="clicked()">
+        <h1 class="d-flex justify-content-start mt-1">
+          {{ answer.id }}:
+          {{ answer.answer }}
+        </h1>
+      </b-button>
+    </b-button-group>
+  </div>
 </template>
 
 <script>
@@ -25,5 +29,13 @@ export default {
 </script>
 
 <style scoped>
+
+#answerButtons{
+  padding: 50px;
+  height: 250px;
+  width: 400px;
+  margin-bottom: 50px;
+  background: #b51783;
+}
 
 </style>
