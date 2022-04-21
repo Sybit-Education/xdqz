@@ -4,7 +4,7 @@
 
     <b-card class="login__pin-card">
       <b-card-text>
-        <h3 class="text-center">Enter your PIN-Code</h3>
+        <h3 class="text-center">Gibt deinen Pin-Code ein</h3>
       </b-card-text>
       <b-card-text>
         <b-row>
@@ -16,19 +16,17 @@
               auto-focus
               @complete="onPinComplete"
             />
-
           </b-col>
         </b-row>
       </b-card-text>
       <b-card-text v-if="errorMessage" class="login__error">
         <b-alert variant="danger" show>{{ errorMessage }}</b-alert>
-        <b-button @click="reload">Retry</b-button>
+        <b-button @click="reload">Erneut versuchen</b-button>
       </b-card-text>
       <b-card-text v-else-if="pin">
-        <h3 class="text-center">Enter your shortname</h3>
+        <h3 class="text-center">Gib dein Kürzel ein</h3>
         <b-alert variant="warning" show>
-          <h3>Warning: Every shortname has <strong>only one try</strong> and is assigned
-          to the prices later. Verify if it is really your shortname!
+          <h3>Achtung: Jedes Kürzel <strong>hat nur einen Versuch</strong> und nimmt am Gewinnspiel teil. Stelle sicher, dass es dein Kürzel!
           </h3>
         </b-alert>
         <b-input class="shortname-input" size="lg" v-model="shortname" placeholder="e.g. tre"></b-input>
@@ -36,7 +34,7 @@
     </b-card>
     <b-row>
       <random-sprite />
-      <b-button size="lg" variant="primary" class="login__button" :disabled="!result || !shortname" @click="start">
+      <b-button size="lg" variant="primary" class="login__button" @click="start">
         Start!
       </b-button>
     </b-row>
@@ -45,17 +43,14 @@
         <p>
           1.) Pro Spieler nur 1 Versuch!
         </p>
+        <p>
+          2.) 30 sec. pro Frage, je schneller umso mehr Punkte gibt´s!
+        </p>
+        <p>
+          3.) Es gibt kein Zurück ;)
+        </p>
       </Strong>
-      <br>
-      <p>
-        2.) 30 sec. pro Frage, je schneller umso mehr Punkte gibt´s!
-      </p>
-      <br>
-      <p>
-        3.) Es gibt kein Zurück ;)
-      </p>
     </section>
-    <b-img src="/img/SyPacman.png" alt="Packman" class="packman"/>
   </b-container>
 </template>
 
@@ -151,14 +146,21 @@ export default {
 .b-card-text{
   font-family: 'Common Pixel' !important;
 }
+
 .login__pin-card{
-margin-top: 50px;
+margin-top: 180px;
 margin-bottom: 40px;
 }
+
+.text-center{
+  margin-bottom: 30px;
+}
+
 .row{
   display: flex;
   justify-content: center;
 }
+
 .login__button{
   border-bottom: 6px inset rgba(0,0,0,.5);
   border-left: 6px inset rgba(0,0,0,.5);
@@ -170,13 +172,19 @@ margin-bottom: 40px;
     background: #BCBCBC;
   }
 }
-.packman{
 
+.col{
+  margin-bottom: 15px;
 }
+
 #rules{
   margin-top: 45px;
   display: block;
   text-align: center;
   font-size: 15px;
+}
+
+.random-sprite{
+  margin-right: 30px;
 }
 </style>
