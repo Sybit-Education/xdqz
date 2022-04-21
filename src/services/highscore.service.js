@@ -1,8 +1,12 @@
 import base from './airtable.service'
 
 const TABLE_NAME = 'User'
+const MAX_RECORDS = 20
 
 const highscoreService = {
+  getMaxRecords () {
+    return MAX_RECORDS
+  },
   async getHighscore () {
     return new Promise((resolve, reject) => {
       const resultList = []
@@ -13,9 +17,10 @@ const highscoreService = {
           { field: 'Shortname', direction: 'asc' }
         ],
         filterByFormula: "NOT({Score} = '')",
-        maxRecords: 50
+        view: 'highscore',
+        maxRecords: MAX_RECORDS
       }).eachPage(
-        function page (partialRecords) {
+        function page (partialRecords, fetchNextPage) {
           // This function (`page`) will get called for each page of records.
           partialRecords.forEach((partialRecord) => {
             resultList.push({
@@ -23,15 +28,16 @@ const highscoreService = {
               ...partialRecord.fields
             })
           })
+          fetchNextPage()
         },
         function done (err) {
           if (err) {
             console.error(err)
             reject(err)
           }
+          resolve(resultList)
         }
       )
-      resolve(resultList)
     })
   },
   setHighscore (user, score) {
