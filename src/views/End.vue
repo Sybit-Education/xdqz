@@ -9,7 +9,7 @@
         Neustart in <br>
         <span class="countdown">{{ countdown }}</span>
         <br>
-        <b-button @click="restart" size="lg">Jetzt neustarten</b-button>
+        <b-button id="restart" @click="restart" size="lg">Jetzt neustarten</b-button>
       </h2>
     </b-col>
   </b-container>
@@ -62,4 +62,9 @@ h1, h2 {
   font-weight: bold;
   font-size: 100px;
 }
+
+#restart{
+  background-color: #b51783;
+}
+
 </style>

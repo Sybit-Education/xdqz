@@ -16,12 +16,6 @@ const routes = [
     component: () => import(/* webpackChunkName: "highscore" */ '../views/HighscoreView.vue')
   },
   {
-    path: '/help',
-    name: 'Help',
-    component: () => import(/* webpackChunkName: "help" */ '../views/HelpView.vue')
-
-  },
-  {
     path: '/end',
     name: 'End',
     component: () => import('../views/End.vue')
