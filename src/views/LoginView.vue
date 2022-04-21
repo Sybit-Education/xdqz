@@ -44,15 +44,15 @@
     </b-row>
     <section id="rules">
       <Strong>
-        <h3>
+        <p>
           1.) Pro Spieler nur 1 Versuch!
-        </h3>
-        <h3>
+        </p>
+        <p>
           2.) 30 sec. pro Frage, je schneller umso mehr Punkte gibt´s!
-        </h3>
-        <h3>
+        </p>
+        <p>
           3.) Es gibt kein Zurück ;)
-        </h3>
+        </p>
       </Strong>
     </section>
     <div class="sprite">
@@ -141,7 +141,7 @@ export default {
 }
 
 .react-code-input > input {
-  font-family: 'Common Pixel' !important;
+  font-family: 'press_start_2pregular' !important;
 }
 
 .shortname-input {
@@ -150,8 +150,9 @@ export default {
   margin-left: auto;
   margin-right: auto;
 }
-.b-card-text{
-  font-family: 'Common Pixel' !important;
+p{
+  font-family: 'press_start_2pregular' !important;
+  font-size: 15px;
 }
 
 .login__pin-card{
@@ -188,6 +189,7 @@ export default {
   margin: 150px 0px 120px;
   display: block;
   text-align: center;
+  font-size: 10px;
 }
 
 .sprite{
