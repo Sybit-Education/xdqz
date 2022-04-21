@@ -11,10 +11,9 @@
       <random-sprite />
     </b-col>
     <b-col v-else align="center">
-      <h1>Frage {{ questionLabel }}</h1>
-      <b-progress :value="questionLabel" :max="10" variant="primary" />
+      <b-progress id="progressBar" height="2rem"  :value="questionLabel" :max="10" variant="primary" />
       <span class="d-flex justify-content-end" style="color: grey">{{ questionLabel }}/10</span>
-      <div v-if="questions.length">
+      <div class="question" v-if="questions.length">
         <random-sprite />
         <question :question="questions[questionIndex]" class="mb-5" @next="nextQuestion" />
       </div>
@@ -64,7 +63,7 @@ export default {
   methods: {
     nextQuestion () {
       this.questionIndex++
-      if (this.questionIndex === 9) {
+      if (this.questionIndex === 10) {
         this.$router.push({ name: 'End' })
       }
     },
@@ -148,5 +147,13 @@ h2 {
   color: black;
   font-weight: bold;
   font-size: 100px;
+}
+
+.question{
+  margin-top: 50px;
+}
+
+#progressBar{
+  margin-top: 50px;
 }
 </style>
