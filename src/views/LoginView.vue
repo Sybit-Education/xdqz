@@ -32,25 +32,27 @@
         <b-input class="shortname-input" size="lg" v-model="shortname" placeholder="e.g. tre"></b-input>
       </b-card-text>
     </b-card>
-    <b-row>
-      <random-sprite />
+    <b-row class="button-row">
       <b-button size="lg" variant="primary" class="login__button" @click="start">
         Start!
       </b-button>
     </b-row>
     <section id="rules">
       <Strong>
-        <p>
+        <h3>
           1.) Pro Spieler nur 1 Versuch!
-        </p>
-        <p>
+        </h3>
+        <h3>
           2.) 30 sec. pro Frage, je schneller umso mehr Punkte gibt´s!
-        </p>
-        <p>
+        </h3>
+        <h3>
           3.) Es gibt kein Zurück ;)
-        </p>
+        </h3>
       </Strong>
     </section>
+    <div class="sprite">
+      <random-sprite />
+    </div>
   </b-container>
 </template>
 
@@ -148,17 +150,17 @@ export default {
 }
 
 .login__pin-card{
-margin-top: 180px;
-margin-bottom: 40px;
+  margin: 180px 4px 40px;
 }
 
 .text-center{
   margin-bottom: 30px;
 }
 
-.row{
+.button-row{
   display: flex;
   justify-content: center;
+  margin-top: 50px;
 }
 
 .login__button{
@@ -178,13 +180,13 @@ margin-bottom: 40px;
 }
 
 #rules{
-  margin-top: 45px;
+  margin: 150px 0px 120px;
   display: block;
   text-align: center;
-  font-size: 15px;
 }
 
-.random-sprite{
-  margin-right: 30px;
+.sprite{
+  display: flex;
+  justify-content: center;
 }
 </style>
