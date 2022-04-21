@@ -8,12 +8,14 @@
         <span class="countdown">{{ countdown }}</span>
       </h2>
       <h4><strong>Viel Erfolg!</strong></h4>
+      <random-sprite />
     </b-col>
     <b-col v-else align="center">
       <h1>Frage {{ questionLabel }}</h1>
       <b-progress :value="questionLabel" :max="10" variant="primary" />
       <span class="d-flex justify-content-end" style="color: grey">{{ questionLabel }}/10</span>
       <div v-if="questions.length">
+        <random-sprite />
         <question :question="questions[questionIndex]" class="mb-5" @next="nextQuestion" />
       </div>
     </b-col>
@@ -24,9 +26,10 @@
 import HeaderItem from '@/components/HeaderItem.vue'
 import Question from '@/components/question/Question'
 import questionService from '@/services/question.service'
+import RandomSprite from '@/components/RandomSprite.vue'
 
 export default {
-  components: { HeaderItem, Question },
+  components: { HeaderItem, Question, RandomSprite },
   data () {
     return {
       questions: [],

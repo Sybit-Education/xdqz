@@ -3,7 +3,7 @@
     <b-col align="center">
       <h1 class="mb-5">Dein Ergebnis</h1>
       <h3>Herzlichen Glückwunsch du hast</h3>
-      <h2>{{ score }}P</h2>
+      <h2>{{ score }} Punkte</h2>
       <h3>erreicht!</h3>
       <h2 class="mt-5">
         Neustart in <br>
@@ -27,7 +27,7 @@ export default {
   },
   computed: {
     score () {
-      return this.$store.getters.getScore
+      return new Intl.NumberFormat('de-DE').format(this.$store.getters.getScore)
     }
   },
   created () {

@@ -1,7 +1,11 @@
 <template>
   <b-container fluid class="highscore">
     <b-row>
-      <b-col><b-img src="/img/Highscore.png" center class="highscore__banner"/></b-col>
+      <b-col>
+        <router-link to="/">
+          <b-img src="/img/Highscore.png" center class="highscore__banner"/>
+        </router-link>
+      </b-col>
     </b-row>
     <hr>
     <b-row>
@@ -9,7 +13,7 @@
         <highscore-item
           v-for="(item, index) in highscore"
           :key="item.id"
-          :item="item" :rank="index+1"
+          :item="item" :rank="index + 1"
         />
       </div>
     </b-row>
@@ -41,9 +45,10 @@ export default {
   },
   methods: {
     getData () {
-      highscoreService.getHighscore().then((result) => {
-        this.highscore = result
-      })
+      highscoreService.getHighscore()
+        .then((resultList) => {
+          this.highscore = resultList
+        })
     }
   }
 
@@ -64,9 +69,13 @@ html, h1, p {
     max-height: 200px;
   }
   &__columns {
+   overflow: hidden;
+   height: 770px;
+   min-height: 770px;
    column-count: 2;
    column-gap:2em;
-   column-width: calc(100vw  / 2 - 2em);
+   column-width: calc(100vw  / 2 - 4em);
+   column-fill: auto;
    column-rule-style:dotted;
    column-rule-width:10px;
    column-rule-color:silver;
