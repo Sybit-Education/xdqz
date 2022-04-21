@@ -41,5 +41,7 @@ export default {
 </script>
 
 <style>
-
+h1{
+  font-family: 'press_start_2pregular' !important;
+}
 </style>

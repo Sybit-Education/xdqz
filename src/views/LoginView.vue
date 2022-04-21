@@ -111,7 +111,7 @@ export default {
 }
 
 .react-code-input > input {
-  font-family: 'Arial', Arial, sans-serif !important;
+  font-family: 'press_start_2pregular' !important;
 }
 
 .shortname-input {
@@ -121,7 +121,7 @@ export default {
   margin-right: auto;
 }
 .card-text{
-  font-family: 'Arial', Arial, sans-serif !important;
+  font-family: 'press_start_2pregular' !important;
 }
 .row{
   display: flex;
