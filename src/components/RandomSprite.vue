@@ -11,8 +11,13 @@ export default {
       imageList: [
         '/img/sprites/Controller.png',
         '/img/sprites/SyGhost.png',
-        '/img/sprites/SyPacman.png'
-      ]
+        '/img/sprites/SyPacman.png',
+        'img/sprites/bird.png',
+        'img/sprites/ghost.png',
+        'img/sprites/heart.png',
+        'img/sprites/star.png'
+      ],
+      imageIndex: 0
     }
   },
   mounted () {
@@ -20,7 +25,11 @@ export default {
   },
   methods: {
     randomImage () {
-      const randomIndex = Math.floor(Math.random() * this.imageList.length)
+      let randomIndex
+      do {
+        randomIndex = Math.floor(Math.random() * this.imageList.length)
+      } while (randomIndex === this.imageIndex)
+      this.imageIndex = randomIndex
       this.image = this.imageList[randomIndex]
     }
   }
