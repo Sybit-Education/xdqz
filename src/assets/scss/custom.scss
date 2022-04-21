@@ -2,7 +2,7 @@
 
 $primary: #b51783;
 
-body input[type="button"]{
+button-primary{
     border-bottom: 8px inset rgba(0,0,0,.5);
     border-left: 8px inset rgba(0,0,0,.5);
     border-right: 8px inset rgba(255,255,255,.5);
@@ -18,11 +18,3 @@ body input[type="button"]{
 @import 'bootstrap/scss/bootstrap.scss';
 @import 'bootstrap-vue/src/index.scss';
 
-//font
-@font-face {
-  font-family: 'Press Start 2P';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url(https://fonts.gstatic.com/s/pressstart2p/v12/e3t4euO8T-267oIAQAu6jDQyK3nYivN04w.woff2);
-}
