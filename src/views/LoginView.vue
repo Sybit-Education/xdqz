@@ -1,6 +1,6 @@
 <template>
   <b-container class="login">
-    <header-item help-button/>
+    <header-item/>
 
     <b-card class="login__pin-card">
       <b-card-text>
@@ -40,6 +40,21 @@
         Start!
       </b-button>
     </b-row>
+
+    <hr>
+    <section id="rules">
+      <h3>
+        1.) Pro Spieler nur 1 Versuch!
+      </h3>
+      <br>
+      <h3>
+        2.) 30 sec. pro Frage, je schneller umso mehr Punkte gibt´s!
+      </h3>
+      <br>
+      <h3>
+        3.) Es gibt kein Zurück ;)
+      </h3>
+    </section>
   </b-container>
 </template>
 
@@ -142,5 +157,9 @@ export default {
   &:hover{
     background: #BCBCBC;
   }
+}
+
+#rules{
+  margin-top: 75px;
 }
 </style>
