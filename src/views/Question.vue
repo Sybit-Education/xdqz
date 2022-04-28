@@ -14,7 +14,6 @@
       <b-progress id="progressBar" height="2rem"  :value="questionLabel" :max="10" variant="primary" />
       <span class="d-flex justify-content-end" style="color: grey">{{ questionLabel }}/10</span>
       <div class="question" v-if="questions.length">
-        <random-sprite />
         <question :question="questions[questionIndex]" class="mb-5" @next="nextQuestion" />
       </div>
     </b-col>
@@ -148,10 +147,6 @@ h2 {
   font-weight: bold;
   font-size: 100px;
   margin: 50px 0 50px;
-}
-
-.question{
-  margin-top: 50px;
 }
 
 #progressBar{

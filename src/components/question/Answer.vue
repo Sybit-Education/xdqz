@@ -1,14 +1,8 @@
 <template>
-  <div class="mt-3">
-    <b-button-group size="lg">
-      <b-button id="answerButtons"  @click="clicked()">
-        <h1 class="d-flex justify-content-start mt-1">
-          {{ answer.id }}:
-          {{ answer.answer }}
-        </h1>
-      </b-button>
-    </b-button-group>
-  </div>
+  <b-button class="answer-button d-flex" @click="clicked()">
+    <span class="answer-button__id">{{ answer.id }}:</span>
+    <span class="answer-button__text">{{ answer.answer }}</span>
+  </b-button>
 </template>
 
 <script>
@@ -28,14 +22,25 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 
-#answerButtons{
-  padding: 50px;
-  height: 250px;
-  width: 400px;
+.answer-button{
+  height: 15vh;
+  width: 40vw;
   margin-bottom: 50px;
   background: #b51783;
+  &__id{
+    font-size: 36px;
+    font-weight: bold;
+  }
+  &__text{
+    padding-right: 0.75rem;
+    font-size: 36px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    hyphens: auto;
+    line-height: 2.5rem;
+  }
+
 }
 
 </style>

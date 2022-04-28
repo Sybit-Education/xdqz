@@ -1,54 +1,77 @@
 <template>
   <b-container class="login">
     <header-item/>
-    <b-card class="login__pin-card">
-      <b-card-text>
-        <h3 class="text-center">Gibt deinen Pin-Code ein</h3>
-      </b-card-text>
-      <b-card-text>
+    <b-card class="login__pin-card my-5">
+      <b-card-text  v-if="!pin" class="text-center">
+        <h3>Pin-Code eingeben:</h3>
         <b-row>
           <b-col>
-            <code-input
-              ref="pinRef"
-              class="pin-input"
-              :fields="6"
-              auto-focus
-              @complete="onPinComplete"
-            />
+            <b-overlay :show="busy" rounded="lg" opacity="0.6">
+              <template #overlay>
+                <div class="d-flex align-items-center">
+                  <b-spinner small type="grow" variant="secondary"></b-spinner>
+                  <b-spinner type="grow" variant="dark"></b-spinner>
+                  <b-spinner small type="grow" variant="secondary"></b-spinner>
+                </div>
+              </template>
+              <code-input
+                ref="pinRef"
+                class="pin-input"
+                :fields="6"
+                auto-focus
+                @complete="onPinComplete"
+              />
+              </b-overlay>
           </b-col>
         </b-row>
       </b-card-text>
-      <b-card-text v-if="errorMessage" class="login__error">
-        <b-alert variant="danger" show>{{ errorMessage }}</b-alert>
-        <b-button @click="reload">Erneut versuchen</b-button>
+      <b-card-text v-if="errorMessage" class="login__error text-center">
+        <b-alert variant="danger" show><h4>{{ errorMessage }}</h4></b-alert>
+        <b-button @click="reload" size="lg">Erneut versuchen</b-button>
       </b-card-text>
-      <b-card-text v-else-if="pin">
-        <h3 class="text-center">Gib dein Kürzel ein</h3>
-        <b-alert variant="warning" show>
-          <h3>Achtung: Jedes Kürzel <strong>hat nur einen Versuch</strong> und nimmt am Gewinnspiel teil. Stelle sicher, dass es dein Kürzel!
-          </h3>
-        </b-alert>
-        <b-input class="shortname-input" size="lg" v-model="shortname" placeholder="e.g. tre"></b-input>
-      </b-card-text>
+      <b-form v-else-if="pin" @submit.prevent="start">
+        <b-card-text>
+          <h3 class="text-center">Gib dein Kürzel ein:</h3>
+
+            <b-input
+              ref="shortname"
+              class="shortname-input"
+              size="lg"
+              v-model="shortname"
+              placeholder="z.B. tre"
+              style="max-width: 360px;"
+            />
+
+          <b-alert class="m-3" variant="warning" show>
+            <h5>
+              Achtung: Jedes Kürzel <strong>hat nur einen Versuch</strong>
+              und nimmt am Gewinnspiel teil.<br>
+              Stelle sicher, dass es wirklich <strong>dein Kürzel</strong> ist!
+            </h5>
+          </b-alert>
+        </b-card-text>
+
+        <b-row class="button-row" v-if="!errorMessage">
+          <b-button size="lg" variant="primary" @click="start">
+            -&gt;  Start!  &lt;-
+          </b-button>
+        </b-row>
+      </b-form>
     </b-card>
-    <b-row class="button-row">
-      <b-button size="lg" variant="primary" class="login__button" @click="start">
-        <h3>Start!</h3>
-      </b-button>
-    </b-row>
-    <section id="rules">
-      <Strong>
-        <p>
-          1.) Pro Spieler nur 1 Versuch!
-        </p>
-        <p>
-          2.) 30 sec. pro Frage, je schneller umso mehr Punkte gibt´s!
-        </p>
-        <p>
-          3.) Es gibt kein Zurück ;)
-        </p>
-      </Strong>
-    </section>
+
+    <b-card class="rules my-5">
+      <ol>
+        <li>
+          Pro Spieler*in nur 1 Versuch!
+        </li>
+        <li>
+          30 sec. pro Frage; je schneller umso mehr Punkte!
+        </li>
+        <li>
+          Es gibt kein Zurück ;)
+        </li>
+      </ol>
+    </b-card>
     <div class="sprite">
       <random-sprite />
     </div>
@@ -74,36 +97,42 @@ export default {
       pin: null,
       shortname: null,
       result: null,
-      errorMessage: ''
+      errorMessage: '',
+      busy: false
     }
   },
   methods: {
     async onPinComplete (pin) {
       this.errorMessage = ''
+      this.busy = true
       const result = await loginService.verifyPin(pin)
       if (result.length === 1) {
         if (result?.[0].Shortname) {
-          this.errorMessage = `Pin already used by ${result[0].Shortname}`
+          this.errorMessage = `Pin wird schon verwendet: ${result[0].Shortname}`
         } else {
           this.pin = pin
           this.result = result
+          setTimeout(() => {
+            this.$refs.shortname.focus()
+          }, 500)
         }
       } else if (result?.length === 0 && pin.length === 6) {
-        this.errorMessage = 'Pin Invalid'
+        this.errorMessage = 'Ungültiger Pin!'
       }
+      this.busy = false
     },
     start () {
       if (this.shortname && this.shortname.length > 0 && this.shortname.length < 5) {
         loginService.isUserUsed(this.shortname).then(isUsed => {
           if (isUsed) {
-            this.errorMessage = `${this.shortname} already played!`
+            this.errorMessage = `${this.shortname} hat schon mitgespielt!`
           } else {
             loginService.setShortname(this.result?.[0], this.pin, this.shortname)
             this.$router.push({ name: 'Question' })
           }
         })
       } else {
-        console.error('invalid shortname')
+        this.errorMessage = 'Falsches Kürzel!'
       }
     },
     reload () {
@@ -112,6 +141,7 @@ export default {
       this.shortname = ''
       this.$refs.pinRef.values = ['', '', '', '', '', '']
       this.errorMessage = ''
+      this.$refs.pinRef.$el.focus()
     }
   },
   computed: {
@@ -146,47 +176,30 @@ export default {
 }
 p{
   font-family: 'press_start_2pregular' !important;
-  font-size: 15px;
+  font-size: 24px;
 }
 
 .login__pin-card{
-  margin: 180px 4px 40px;
-}
-
-.text-center{
-  margin-bottom: 30px;
+  min-height: 30vh;
 }
 
 .button-row{
   display: flex;
   justify-content: center;
-  margin-top: 50px;
 }
 
-.login__button{
-  border-bottom: 6px inset rgba(0,0,0,.5);
-  border-left: 6px inset rgba(0,0,0,.5);
-  border-right: 6px inset rgba(255,255,255,.5);
-  border-top: 6px inset rgba(255,255,255,.5);
-  color: white;
-  cursor: pointer;
-  &:hover{
-    background: #BCBCBC;
+.rules {
+  background-color: rgba(190, 83, 156, 0.5) !important;
+
+  li {
+    margin-left: 2.75rem;
+    font-family: 'press_start_2pregular' !important;
+    font-size: 24px;
+    font-weight: 500;
   }
 }
 
-.col{
-  margin-bottom: 15px;
-}
-
-#rules{
-  margin: 150px 0px 120px;
-  display: block;
-  text-align: center;
-  font-size: 10px;
-}
-
-.sprite{
+.sprite {
   display: flex;
   justify-content: center;
 }

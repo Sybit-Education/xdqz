@@ -1,28 +1,36 @@
 <template>
-  <div>
-    <b-row id="timeAndScore">
-      <b-col align="left">
-        <h5>Score: <strong class="score">{{ score }}</strong></h5>
+  <div class="mt-3">
+
+    <b-row class="time-and-score">
+      <b-col cols="5" align="left">
+        <h5>Score: <span class="score">{{ score }}</span></h5>
       </b-col>
-      <b-col align="right">
-        <h5>Zeit: <strong class="countdown">{{ countdown }}</strong></h5>
+      <b-col cols="2" align="center">
+        <random-sprite />
+      </b-col>
+      <b-col cols="5" align="right">
+        <h5>Zeit: <span class="countdown">{{ countdown }}</span></h5>
       </b-col>
     </b-row>
-    <h1 id="questionText">{{ question.question }}</h1>
-    <b-row class="mt-2">
+
+    <div class="question-text">{{ question.question }}</div>
+
+    <b-row class="mt-3">
       <b-col cols="6" v-for="answer in question.answers" :key="answer.id">
         <answer :answer="answer" @clicked="checkSolution($event)" />
       </b-col>
     </b-row>
+
   </div>
 </template>
 
 <script>
 import Answer from '@/components/question/Answer'
+import RandomSprite from '@/components/RandomSprite.vue'
 
 export default {
   name: 'Question',
-  components: { Answer },
+  components: { Answer, RandomSprite },
   props: {
     question: {
       type: Object,
@@ -99,12 +107,15 @@ export default {
   color: #b51783;
 }
 
-#questionText{
-  margin-bottom: 175px;
+.question-text{
+  min-height: 200px;
+  height: 200px;
+  margin-bottom: 2.5rem;
+  font-size: 36px;
 }
 
-#timeAndScore{
-  margin-bottom: 150px;
+.time-and-score{
+  margin-bottom: 2.5rem;
   font-family: 'press_start_2pregular' !important;
 }
 </style>

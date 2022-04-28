@@ -1,28 +1,40 @@
 <template>
-  <b-container class="endSite">
+  <b-container class="end-view">
     <header-item />
-    <b-col align="center">
-      <br>
-      <h1 class="mb-5">Dein Ergebnis</h1><br>
-      <h3>Herzlichen Glückwunsch du hast</h3><br>
-      <h2>{{ score }} Punkte</h2><br>
-      <h3>erreicht!</h3>
-      <h2 class="mt-5">
-        Neustart in <br>
-        <span class="countdown">{{ countdown }}</span>
-        <br>
-        <b-button id="restart" @click="restart" size="lg">Jetzt neustarten</b-button>
-      </h2>
-    </b-col>
+    <b-card align="center my-3">
+      <h1 class="mb-3">Dein Ergebnis</h1>
+      <b-card-text>
+        Herzlichen Glückwunsch {{ name }}, du hast
+        <div class="my-3 score">{{ score }} P</div>
+        erreicht!
+      </b-card-text>
+    </b-card>
+    <b-row>
+      <b-col align="center">
+        <random-sprite align="center"/>
+      </b-col>
+    </b-row>
+    <b-card align="center">
+      <h2 class="mt-3">Neustart in</h2>
+      <div class="my-3 countdown">{{ countdown }}</div>
+      <b-button id="restart"
+        @click="restart"
+        variant="primary"
+        size="lg"
+      >
+        Jetzt neu starten
+      </b-button>
+    </b-card>
   </b-container>
 </template>
 
 <script>
 import highscoreService from '@/services/highscore.service'
 import HeaderItem from '@/components/HeaderItem.vue'
+import RandomSprite from '@/components/RandomSprite.vue'
 
 export default {
-  components: { HeaderItem },
+  components: { HeaderItem, RandomSprite },
   name: 'End',
   data () {
     return {
@@ -32,6 +44,9 @@ export default {
   computed: {
     score () {
       return new Intl.NumberFormat('de-DE').format(this.$store.getters.getScore)
+    },
+    name () {
+      return this.$store.getters.getUser
     }
   },
   created () {
@@ -56,23 +71,22 @@ export default {
 </script>
 
 <style scoped lang="scss">
-h1, h2 {
-  color: #b51783;
-  font-weight: bold;
-}
-
-.countdown {
-  color: black;
-  font-weight: bold;
-  font-size: 100px;
-}
-
-#restart{
-  background-color: #b51783;
-}
-
-.endSite{
+.end-view{
   font-family: press_start_2pregular;
-}
 
+  h1 {
+    color: #b51783;
+    font-weight: bold;
+  }
+  .score {
+    color: #b51783;
+    font-size: 2.5rem;
+    font-weight: bold;
+  }
+
+  .countdown {
+    font-weight: bold;
+    font-size: 2.5rem;
+  }
+}
 </style>

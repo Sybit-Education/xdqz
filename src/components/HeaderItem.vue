@@ -29,8 +29,7 @@ export default {
 
 <style lang="scss" scoped>
 nav {
-  margin-bottom: 1.5rem;
-  padding-bottom: 0.5rem;
-  margin-top: 50px
+  margin-bottom: 1rem;
+  margin-top: 1rem;
 }
 </style>
