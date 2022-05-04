@@ -39,7 +39,6 @@
               size="lg"
               v-model="shortname"
               placeholder="z.B. tre"
-              style="max-width: 360px;"
             />
 
           <b-alert class="m-3" variant="warning" show>
@@ -50,7 +49,24 @@
             </h5>
           </b-alert>
         </b-card-text>
+        <b-card-text class="my-5">
+          <h3 class="text-center">Nickname für die Highscore:</h3>
 
+            <b-input
+              ref="nickname"
+              class="nickname-input"
+              size="lg"
+              v-model="nickname"
+              placeholder="e.g. Ninja Turtle"
+              style="max-width: 360px;"
+            />
+
+          <b-alert class="m-3" variant="warning" show>
+            <h5>
+              Mit diesem Nickname werden deine Ergebnisse auf der Highscore angezeigt.
+            </h5>
+          </b-alert>
+        </b-card-text>
         <b-row class="button-row" v-if="!errorMessage">
           <b-button size="lg" variant="primary" @click="start">
             -&gt;  Start!  &lt;-
@@ -62,7 +78,7 @@
     <b-card class="rules my-5">
       <ol>
         <li>
-          Pro Spieler*in nur 1 Versuch!
+          1 Versuch pro Tag!
         </li>
         <li>
           30 sec. pro Frage; je schneller umso mehr Punkte!
@@ -96,6 +112,7 @@ export default {
     return {
       pin: null,
       shortname: null,
+      nickname: null,
       result: null,
       errorMessage: '',
       busy: false
@@ -127,7 +144,7 @@ export default {
           if (isUsed) {
             this.errorMessage = `${this.shortname} hat schon mitgespielt!`
           } else {
-            loginService.setShortname(this.result?.[0], this.pin, this.shortname)
+            loginService.setShortname(this.result?.[0], this.pin, this.shortname, this.nickname)
             this.$router.push({ name: 'Question' })
           }
         })
@@ -171,6 +188,15 @@ export default {
 .shortname-input {
   margin-top: 1rem;
   width: 340px;
+  max-width: 340px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.nickname-input {
+  margin-top: 1rem;
+  width: 340px;
+  max-width: 340px;
   margin-left: auto;
   margin-right: auto;
 }

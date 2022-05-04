@@ -21,7 +21,6 @@
 </template>
 
 <script>
-import { crono } from 'vue-crono'
 import highscoreService from '@/services/highscore.service'
 import HighscoreItem from '@/components/HighscoreItem.vue'
 
@@ -35,23 +34,21 @@ export default {
       highscore: []
     }
   },
-  mixins: [crono],
   mounted () {
     this.getData()
   },
-  cron: {
-    time: REFRESH_SECONDS * 1000, // seconds * milliseconds
-    method: 'getData'
-  },
   methods: {
     getData () {
+      this.highscore = []
       highscoreService.getHighscore()
         .then((resultList) => {
           this.highscore = resultList
+          setTimeout(() => {
+            this.getData()
+          }, REFRESH_SECONDS * 1000)
         })
     }
   }
-
 }
 </script>
 

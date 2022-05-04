@@ -47,12 +47,13 @@ const loginService = {
       })
     })
   },
-  setShortname (record, pin, shortname) {
+  setShortname (record, pin, shortname, nickname) {
     base(TABLE_NAME).update([{
       id: record.id,
       fields: {
         Pin: pin,
-        Shortname: shortname
+        Shortname: shortname,
+        Nickname: nickname
       }
     }
     ], function (err, records) {

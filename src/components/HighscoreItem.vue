@@ -42,7 +42,7 @@ export default {
     },
     name: function () {
       if (this.item) {
-        return this.item.Nickname ? this.item.Nickname : this.item.Shortname
+        return this.item.Nickname ? `${this.item.Nickname} [${this.item.Shortname}]` : this.item.Shortname
       }
       return ''
     }
@@ -63,40 +63,37 @@ export default {
   margin: 0;
   padding: 8px;
   font-size: 40px;
-  font-weight: bold;
-  color: rgba(255, 255, 255, 0.5);
-  text-shadow: 0 0 3px rgba(255, 255, 255,  0.5);
+  color: rgb(173, 163, 163);
+  border-bottom: 1px dotted rgba(255, 255, 255, 0.75);
 
   &__rank-1 {
     color: rgb(255, 97, 205);
-    text-shadow: 0 0 3px rgb(247, 127, 209);
   }
   &__rank-2 {
     color: rgb(205, 102, 172);
-    text-shadow: 0 0 3px rgb(203, 81, 164);
   }
   &__rank-3 {
     color: rgb(180, 136, 166);
-    text-shadow: 0 0 3px rgb(190, 83, 156);
   }
   &__rank-4 {
     color: rgb(171, 130, 157);
-    text-shadow: 0 0 3px rgb(190, 83, 156);
   }
   &__rank-5 {
-    color: rgb(129, 119, 126);
-    text-shadow: 0 0 3px rgb(190, 83, 156);
+    color: rgb(160, 127, 149);
   }
   &__rank-col {
-
+    font-family: 'press_start_2pregular' !important;
+    font-size: 36px;
   }
   &__name-col {
+    font-weight: bold;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
   &__score-col {
-
+    font-family: 'press_start_2pregular' !important;
+    font-size: 36px;
   }
 }
 </style>
