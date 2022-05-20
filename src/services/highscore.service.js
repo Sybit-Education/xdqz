@@ -43,14 +43,21 @@ const highscoreService = {
   setHighscore (user, score) {
     base(TABLE_NAME).select({
       filterByFormula: `SEARCH(LOWER('${user}'),LOWER({Shortname}))`,
-      maxRecords: 1
+      maxRecords: 2
     }).firstPage((err, records) => {
       if (err) {
         console.error(err)
       }
+      let index = 0
+      records.forEach((record, i) => {
+        if (!record?.fields?.Score) {
+          index = i
+        }
+      })
+
       base(TABLE_NAME).update([
         {
-          id: records[0].id,
+          id: records[index].id,
           fields: {
             Score: score
           }

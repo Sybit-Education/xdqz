@@ -37,13 +37,13 @@ const loginService = {
     return new Promise((resolve, reject) => {
       base(TABLE_NAME).select({
         filterByFormula: `SEARCH(LOWER('${shortname}'),LOWER({Shortname}))`,
-        maxRecords: 1
+        maxRecords: 2
       }).firstPage((err, records) => {
         if (err) {
           console.error(err)
           reject(err)
         }
-        resolve(records.length > 0)
+        resolve(records.length > 1)
       })
     })
   },
