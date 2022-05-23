@@ -142,7 +142,7 @@ export default {
       if (this.shortname && this.shortname.length > 0 && this.shortname.length < 5) {
         loginService.isUserUsed(this.shortname).then(isUsed => {
           if (isUsed) {
-            this.errorMessage = `${this.shortname} hat schon mitgespielt!`
+            this.errorMessage = `${this.shortname} hat schon 2 mal mitgespielt!`
           } else {
             loginService.setShortname(this.result?.[0], this.pin, this.shortname, this.nickname)
             this.$router.push({ name: 'Question' })
