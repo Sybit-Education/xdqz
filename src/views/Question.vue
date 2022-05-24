@@ -11,7 +11,7 @@
       <random-sprite />
     </b-col>
     <b-col v-else align="center">
-      <b-progress id="progressBar" height="2rem"  :value="questionLabel" :max="10" variant="primary" />
+      <b-progress id="progressBar" height="0.5rem"  :value="questionLabel" :max="10" variant="primary" />
       <span class="d-flex justify-content-end" style="color: grey">{{ questionLabel }}/10</span>
       <div class="question" v-if="questions.length">
         <question :question="questions[questionIndex]" class="mb-5" @next="nextQuestion" />
@@ -150,7 +150,7 @@ h2 {
 }
 
 #progressBar{
-  margin-top: 50px;
+  margin-top: 0.25rem;
 }
 
 .spielStart{

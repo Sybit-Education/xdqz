@@ -108,14 +108,14 @@ export default {
 }
 
 .question-text{
-  min-height: 200px;
-  height: 200px;
-  margin-bottom: 2.5rem;
-  font-size: 36px;
+  min-height: 180px;
+  height: 180px;
+  margin-bottom: 0.75rem;
+  font-size: 32px;
+  font-weight: 600;
 }
 
 .time-and-score{
-  margin-bottom: 2.5rem;
   font-family: 'press_start_2pregular' !important;
 }
 </style>

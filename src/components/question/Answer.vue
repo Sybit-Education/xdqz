@@ -26,21 +26,20 @@ export default {
 
 .answer-button{
   height: 15vh;
-  width: 40vw;
+  width: 100%;
   margin-bottom: 50px;
   background: #b51783;
   &__id{
-    font-size: 36px;
+    font-size: 32px;
     font-weight: bold;
   }
   &__text{
     padding-right: 0.75rem;
-    font-size: 36px;
+    font-size: 32px;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     hyphens: auto;
-    line-height: 2.5rem;
+    line-height: 2.25rem;
   }
-
 }
 
 </style>
