@@ -67,8 +67,8 @@ html, h1, p {
   }
   &__columns {
    overflow: hidden;
-   height: 770px;
-   min-height: 770px;
+   height: 480px;
+   max-height: 480px;
    column-count: 2;
    column-gap:2em;
    column-width: calc(100vw  / 2 - 4em);
