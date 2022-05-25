@@ -1,5 +1,5 @@
 <template>
-  <b-container>
+  <b-container fluid>
     <header-item />
 
     <b-col class="spielStart" v-if="countdown > 0" align="center">
@@ -11,8 +11,8 @@
       <random-sprite />
     </b-col>
     <b-col v-else align="center">
-      <b-progress id="progressBar" height="0.5rem"  :value="questionLabel" :max="10" variant="primary" />
-      <span class="d-flex justify-content-end" style="color: grey">{{ questionLabel }}/10</span>
+      <b-progress id="progressBar" height="0.25rem"  :value="questionLabel" :max="10" variant="primary" />
+      <span class="d-flex justify-content-end" style="color: grey">Frage: {{ questionLabel }}/10</span>
       <div class="question" v-if="questions.length">
         <question :question="questions[questionIndex]" class="mb-5" @next="nextQuestion" />
       </div>

@@ -6,7 +6,7 @@
         <h5>Score: <span class="score">{{ score }}</span></h5>
       </b-col>
       <b-col cols="2" align="center">
-        <random-sprite />
+        <random-sprite ref="sprite" class="time-and-score__sprite"/>
       </b-col>
       <b-col cols="5" align="right">
         <h5>Zeit: <span class="countdown">{{ countdown }}</span></h5>
@@ -96,13 +96,14 @@ export default {
         }
         this.$store.dispatch('addScore', score)
       }
+      this.$refs.sprite.randomImage()
       this.$emit('next')
     }
   }
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .score, .countdown {
   color: #b51783;
 }
@@ -110,12 +111,16 @@ export default {
 .question-text{
   min-height: 180px;
   height: 180px;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
   font-size: 32px;
   font-weight: 600;
 }
 
-.time-and-score{
+.time-and-score {
   font-family: 'press_start_2pregular' !important;
+
+  &__sprite {
+    width: 80px;
+  }
 }
 </style>
