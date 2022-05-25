@@ -2,7 +2,7 @@
   <b-container class="login">
     <header-item/>
     <b-card class="login__pin-card my-5">
-      <b-card-text  v-if="!pin" class="text-center">
+      <b-card-text v-if="!pin" class="text-center">
         <h3>Pin-Code eingeben:</h3>
         <b-row>
           <b-col>
@@ -21,7 +21,7 @@
                 auto-focus
                 @complete="onPinComplete"
               />
-              </b-overlay>
+            </b-overlay>
           </b-col>
         </b-row>
       </b-card-text>
@@ -29,49 +29,56 @@
         <b-alert variant="danger" show><h4>{{ errorMessage }}</h4></b-alert>
         <b-button @click="reload" size="lg">Erneut versuchen</b-button>
       </b-card-text>
-      <b-form v-else-if="pin" @submit.prevent="start">
+      <b-form v-else-if="pin && !isShortnameSet" @submit.prevent="checkShortname">
         <b-card-text>
           <h3 class="text-center">Gib dein Kürzel ein:</h3>
 
-            <b-input
-              ref="shortname"
-              class="shortname-input"
-              size="lg"
-              v-model="shortname"
-              placeholder="z.B. tre"
-            />
+          <b-input
+            ref="shortname"
+            class="shortname-input"
+            size="lg"
+            v-model="shortname"
+            placeholder="z.B. tre"
+          />
 
           <b-alert class="m-3" variant="warning" show>
             <h5>
-              Achtung: Jedes Kürzel <strong>hat nur einen Versuch</strong>
+              Achtung: Jedes Kürzel <strong>hat jeden Tag nur einen Versuch</strong>
               und nimmt am Gewinnspiel teil.<br>
               Stelle sicher, dass es wirklich <strong>dein Kürzel</strong> ist!
             </h5>
           </b-alert>
+          <b-row class="button-row" v-if="!errorMessage && shortname">
+            <b-button size="lg" variant="primary" type="submit">
+              Weiter
+            </b-button>
+          </b-row>
         </b-card-text>
+      </b-form>
+      <b-form v-else-if="pin && isShortnameSet" @submit.prevent="start">
         <b-card-text class="my-5">
           <h3 class="text-center">Nickname für die Highscore:</h3>
 
-            <b-input
-              ref="nickname"
-              class="nickname-input"
-              size="lg"
-              v-model="nickname"
-              placeholder="e.g. Ninja Turtle"
-              style="max-width: 360px;"
-            />
+          <b-input
+            ref="nickname"
+            class="nickname-input"
+            size="lg"
+            v-model="nickname"
+            placeholder="e.g. Ninja Turtle"
+            style="max-width: 360px;"
+          />
 
           <b-alert class="m-3" variant="warning" show>
             <h5>
               Mit diesem Nickname werden deine Ergebnisse auf der Highscore angezeigt.
             </h5>
           </b-alert>
+          <b-row class="button-row" v-if="!errorMessage && shortname">
+            <b-button size="lg" variant="primary" type="submit">
+              -&gt; Start! &lt;-
+            </b-button>
+          </b-row>
         </b-card-text>
-        <b-row class="button-row" v-if="!errorMessage">
-          <b-button size="lg" variant="primary" @click="start">
-            -&gt;  Start!  &lt;-
-          </b-button>
-        </b-row>
       </b-form>
     </b-card>
 
@@ -89,7 +96,7 @@
       </ol>
     </b-card>
     <div class="sprite">
-      <random-sprite />
+      <random-sprite/>
     </div>
   </b-container>
 </template>
@@ -115,7 +122,8 @@ export default {
       nickname: null,
       result: null,
       errorMessage: '',
-      busy: false
+      busy: false,
+      isShortnameSet: false
     }
   },
   methods: {
@@ -138,18 +146,27 @@ export default {
       }
       this.busy = false
     },
-    start () {
+    checkShortname () {
       if (this.shortname && this.shortname.length > 0 && this.shortname.length < 5) {
         loginService.isUserUsed(this.shortname).then(isUsed => {
           if (isUsed) {
             this.errorMessage = `${this.shortname} hat schon mitgespielt!`
+            this.shortname = ''
+            this.isShortnameSet = false
           } else {
-            loginService.setShortname(this.result?.[0], this.pin, this.shortname, this.nickname)
-            this.$router.push({ name: 'Question' })
+            this.isShortnameSet = true
           }
         })
       } else {
         this.errorMessage = 'Falsches Kürzel!'
+      }
+    },
+    start () {
+      if (this.shortname && this.isShortnameSet) {
+        loginService.setShortname(this.result?.[0], this.pin, this.shortname, this.nickname)
+        this.$router.push({ name: 'Question' })
+      } else {
+        this.isShortnameSet = false
       }
     },
     reload () {
@@ -159,17 +176,6 @@ export default {
       this.$refs.pinRef.values = ['', '', '', '', '', '']
       this.errorMessage = ''
       this.$refs.pinRef.$el.focus()
-    }
-  },
-  computed: {
-    validPin () {
-      return (this.result?.length === 1)
-    },
-    errorPin () {
-      return (this.result?.length === 0 && this.pin.length === 6)
-    },
-    usedPin () {
-      return this.validPin && this.result?.[0].Shortname
     }
   }
 }
@@ -200,16 +206,17 @@ export default {
   margin-left: auto;
   margin-right: auto;
 }
-p{
+
+p {
   font-family: 'press_start_2pregular' !important;
   font-size: 24px;
 }
 
-.login__pin-card{
+.login__pin-card {
   min-height: 30vh;
 }
 
-.button-row{
+.button-row {
   display: flex;
   justify-content: center;
 }
