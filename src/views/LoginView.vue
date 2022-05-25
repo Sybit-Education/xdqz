@@ -82,7 +82,7 @@
       </b-form>
     </b-card>
 
-    <b-card class="rules my-5">
+    <b-card class="rules my-2">
       <ol>
         <li>
           1 Versuch pro Tag!
@@ -221,6 +221,7 @@ p {
 
 .rules {
   background-color: rgba(190, 83, 156, 0.5) !important;
+  padding-bottom: 0.25rem;
 
   li {
     margin-left: 2.75rem;

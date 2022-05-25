@@ -39,8 +39,8 @@ export default {
 
 <style lang="scss" scoped>
 .random-sprite {
-  width: 140px;
-  max-height: 140px;
+  width: 100px;
+  max-height: 100px;
   z-index: -10;
   animation: shake 0.5s;
 }
