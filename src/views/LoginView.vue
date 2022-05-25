@@ -43,7 +43,7 @@
 
           <b-alert class="m-3" variant="warning" show>
             <h5>
-              Achtung: Jedes Kürzel <strong>hat nur einen Versuch</strong>
+              Achtung: Jedes Kürzel <strong>hat jeden Tag nur einen Versuch</strong>
               und nimmt am Gewinnspiel teil.<br>
               Stelle sicher, dass es wirklich <strong>dein Kürzel</strong> ist!
             </h5>
