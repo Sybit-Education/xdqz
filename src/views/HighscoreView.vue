@@ -7,7 +7,6 @@
         </router-link>
       </b-col>
     </b-row>
-    <hr>
     <b-row>
       <div class="highscore__columns">
         <highscore-item
@@ -67,11 +66,10 @@ html, h1, p {
   }
   &__columns {
    overflow: hidden;
-   height: 480px;
-   max-height: 480px;
+   height: calc(100vh - 260px);
    column-count: 2;
    column-gap:2em;
-   column-width: calc(100vw  / 2 - 4em);
+   column-width: calc((100vw  / 2) - 4em);
    column-fill: auto;
    column-rule-style:dotted;
    column-rule-width:10px;

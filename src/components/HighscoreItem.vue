@@ -62,7 +62,8 @@ export default {
 .highscore-item {
   margin: 0;
   padding: 8px;
-  font-size: 20px;
+  height: calc((100vh - 260px) / 10);
+  font-size: calc((100vh - 300px) / 10 * 0.4);
   color: rgb(173, 163, 163);
   border-bottom: 1px dotted rgba(255, 255, 255, 0.75);
 
@@ -83,7 +84,7 @@ export default {
   }
   &__rank-col {
     font-family: 'press_start_2pregular' !important;
-    font-size: 20px;
+    --font-size: 20px;
   }
   &__name-col {
     font-weight: bold;
@@ -93,7 +94,7 @@ export default {
   }
   &__score-col {
     font-family: 'press_start_2pregular' !important;
-    font-size: 20px;
+    --font-size: 20px;
   }
 }
 </style>
