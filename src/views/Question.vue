@@ -44,20 +44,24 @@ export default {
     }
   },
   created () {
-    const interval = setInterval(() => {
-      if (this.countdown <= 0) {
-        clearInterval(interval)
-      } else {
-        this.countdown--
-      }
-    }, 1000)
-    questionService.getQuestions().then(list => {
-      this.initList(list, true)
-      if (this.questions.length !== 10) {
-        this.initList(list, false)
-      }
-      this.questions.sort(this.compare)
-    })
+    if (this.$store.getters.getUser) {
+      const interval = setInterval(() => {
+        if (this.countdown <= 0) {
+          clearInterval(interval)
+        } else {
+          this.countdown--
+        }
+      }, 1000)
+      questionService.getQuestions().then(list => {
+        this.initList(list, true)
+        if (this.questions.length !== 10) {
+          this.initList(list, false)
+        }
+        this.questions.sort(this.compare)
+      })
+    } else {
+      this.$router.push('/')
+    }
   },
   methods: {
     nextQuestion () {
