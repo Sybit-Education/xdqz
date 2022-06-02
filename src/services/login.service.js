@@ -9,7 +9,6 @@ const loginService = {
       base(TABLE_NAME).select({
         filterByFormula: `SEARCH(LOWER('${shortname}'),LOWER({Shortname}))`
       }).firstPage(async (err, records) => {
-        console.log(err, records)
         if (err) {
           reject(err)
           console.error(err)
