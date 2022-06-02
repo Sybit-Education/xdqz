@@ -47,19 +47,19 @@ const highscoreService = {
       if (err) {
         console.error(err)
       }
-      let id = records[0].id
-      let highestScore = 0
+      let id
       records.forEach((record) => {
-        if (record.fields.Score > highestScore) {
-          highestScore = record.fields.Score
+        if (record.fields.Score < score) {
           id = record.id
         }
       })
-      base(TABLE_NAME).update([{ id, fields: { Score: score } }], function (err, records) {
-        if (err) {
-          console.error(err)
-        }
-      })
+      if (id) {
+        base(TABLE_NAME).update([{ id, fields: { Score: score } }], function (err, records) {
+          if (err) {
+            console.error(err)
+          }
+        })
+      }
     })
   }
 }
