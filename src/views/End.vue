@@ -50,15 +50,19 @@ export default {
     }
   },
   created () {
-    highscoreService.setHighscore(this.$store.getters.getUser, this.$store.getters.getScore)
-    const interval = setInterval(() => {
-      if (this.countdown <= 0) {
-        clearInterval(interval)
-        this.restart()
-      } else {
-        this.countdown--
-      }
-    }, 1000)
+    if (this.$store.getters.getUser) {
+      highscoreService.setHighscore(this.$store.getters.getUser, this.$store.getters.getScore)
+      const interval = setInterval(() => {
+        if (this.countdown <= 0) {
+          clearInterval(interval)
+          this.restart()
+        } else {
+          this.countdown--
+        }
+      }, 1000)
+    } else {
+      this.$router.push('/')
+    }
   },
   methods: {
     restart () {

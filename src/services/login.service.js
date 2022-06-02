@@ -4,65 +4,38 @@ import store from '@/store'
 const TABLE_NAME = 'User'
 
 const loginService = {
-
-  async verifyPin (pin) {
-    return new Promise((resolve, reject) => {
-      const resultList = []
-
-      base(TABLE_NAME).select({
-        filterByFormula: `SEARCH(LOWER('${pin}'),LOWER({Pin}))`,
-        maxRecords: 1
-      }).eachPage(
-        function page (partialRecords, fetchNextPage) {
-          // This function (`page`) will get called for each page of records.
-          partialRecords.forEach(partialRecord => {
-            resultList.push({
-              id: partialRecord.id,
-              ...partialRecord.fields
-            })
-          })
-          fetchNextPage()
-        },
-        function done (err) {
-          if (err) {
-            console.error(err)
-            reject(err)
-          }
-          resolve(resultList)
-        }
-      )
-    })
-  },
-  isUserUsed (shortname) {
+  async login (shortname, nickname) {
     return new Promise((resolve, reject) => {
       base(TABLE_NAME).select({
-        filterByFormula: `SEARCH(LOWER('${shortname}'),LOWER({Shortname}))`,
-        maxRecords: 2
-      }).firstPage((err, records) => {
+        filterByFormula: `SEARCH(LOWER('${shortname}'),LOWER({Shortname}))`
+      }).firstPage(async (err, records) => {
         if (err) {
-          console.error(err)
           reject(err)
+          console.error(err)
+        } else {
+          if (records.length >= 1) {
+            const user = records[0]
+            if (nickname !== user.fields.Nickname) {
+              await base(TABLE_NAME).update([{
+                id: user.id,
+                fields: {
+                  Shortname: user.fields.Shortname,
+                  Nickname: nickname
+                }
+              }])
+            }
+          } else {
+            await base(TABLE_NAME).create([{
+              fields: {
+                Shortname: shortname,
+                Nickname: nickname
+              }
+            }])
+          }
+          await store.dispatch('setUser', shortname)
+          resolve(true)
         }
-        resolve(records.length > 1)
       })
-    })
-  },
-  setShortname (record, pin, shortname, nickname) {
-    base(TABLE_NAME).update([{
-      id: record.id,
-      fields: {
-        Pin: pin,
-        Shortname: shortname,
-        Nickname: nickname
-      }
-    }
-    ], function (err, records) {
-      if (err) {
-        console.error(err)
-      }
-    },
-    async function done () {
-      await store.dispatch('setUser', shortname)
     })
   }
 }

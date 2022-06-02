@@ -42,31 +42,24 @@ const highscoreService = {
   },
   setHighscore (user, score) {
     base(TABLE_NAME).select({
-      filterByFormula: `SEARCH(LOWER('${user}'),LOWER({Shortname}))`,
-      maxRecords: 2
+      filterByFormula: `SEARCH(LOWER('${user}'),LOWER({Shortname}))`
     }).firstPage((err, records) => {
       if (err) {
         console.error(err)
       }
-      let index = 0
-      records.forEach((record, i) => {
-        if (!record?.fields?.Score) {
-          index = i
+      let id
+      records.forEach((record) => {
+        if (record.fields.Score < score) {
+          id = record.id
         }
       })
-
-      base(TABLE_NAME).update([
-        {
-          id: records[index].id,
-          fields: {
-            Score: score
+      if (id) {
+        base(TABLE_NAME).update([{ id, fields: { Score: score } }], function (err, records) {
+          if (err) {
+            console.error(err)
           }
-        }
-      ], function (err, records) {
-        if (err) {
-          console.error(err)
-        }
-      })
+        })
+      }
     })
   }
 }
